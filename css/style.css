@@ -1,8 +1,18 @@
-img {
+img,
+button,
+input {
     display: block;
-    margin: 0 auto;
+    margin: 15px auto;
+}
+
+h1 {
+    text-align: center;
 }
 
 h2 {
     margin-bottom: 0
+}
+
+.hidden {
+    display: none;
 }

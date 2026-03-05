@@ -1,11 +1,15 @@
 document.querySelector('button').addEventListener('click', getShow)
+document.querySelector('.reset').addEventListener('click', reset)
 
 function getShow() {
 
-    // reset()
+    document.querySelector('h1').classList.toggle('hidden')
+    document.querySelector('h2').classList.toggle('hidden')
+    document.querySelector('button').classList.toggle('hidden')
+    document.querySelector('input').classList.toggle('hidden')
+    document.querySelector('.reset').classList.toggle('hidden')
 
     let show = document.querySelector('input').value
-    // let show = 'Last of Us'
     let url = `https://api.tvmaze.com/search/shows?q=${show}`
 
     fetch (url) 
@@ -34,7 +38,7 @@ function getShow() {
 
                     seasonHeading.innerText = `Season ${seasonNumber}`
                     document.querySelector('section').append(seasonHeading)
-                    seasonHeading.append(seasonList)
+                    document.querySelector('section').append(seasonList)
 
                     // get seasonIDs for next fetch
                     seasonIDs.push(seasonsData[season].id)
@@ -75,7 +79,15 @@ function getShow() {
  */
 
 function reset() {
-    document.querySelector('h3').remove()
+    document.querySelector('input').value = ''
+    document.querySelector('section').innerText = ''
+    document.querySelector('img').src = ''
+    document.querySelector('.summary').innerText = ''
+    document.querySelector('h1').classList.toggle('hidden')
+    document.querySelector('h2').classList.toggle('hidden')
+    document.querySelector('button').classList.toggle('hidden')
+    document.querySelector('input').classList.toggle('hidden')
+    document.querySelector('.reset').classList.toggle('hidden')
 }
 
 function replaceTags(str) {
