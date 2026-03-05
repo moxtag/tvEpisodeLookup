@@ -2,8 +2,10 @@ document.querySelector('button').addEventListener('click', getShow)
 
 function getShow() {
 
-    // let show = document.querySelector('input').value
-    let show = 'Last of Us'
+    // reset()
+
+    let show = document.querySelector('input').value
+    // let show = 'Last of Us'
     let url = `https://api.tvmaze.com/search/shows?q=${show}`
 
     fetch (url) 
@@ -39,14 +41,19 @@ function getShow() {
                  }
 
                 // get episodes for each season
+                let season = 0;
                 seasonIDs.forEach(id => {
+                    season++;
                      let episodesRef = `https://api.tvmaze.com/seasons/${id}/episodes`
+                     let addToList = document.querySelector(`.s${season}`)
                      fetch (episodesRef)
                         .then(episodesRes => episodesRes.json())
                         .then(episodesData => {
-                            console.log(id, episodesData, 'episodes')
+                            console.log(episodesData, 'episodes')
                             for (let episode in episodesData) {
-                                
+                                let listItem = document.createElement('li')
+                                listItem.innerText = episodesData[episode].name 
+                                addToList.append(listItem)
                             }
                         })
                         .catch(err => `error ${err}`)
@@ -67,7 +74,9 @@ function getShow() {
  * fix so html tags in data returned is integerated w/ site
  */
 
-
+function reset() {
+    document.querySelector('h3').remove()
+}
 
 function replaceTags(str) {
     let newString = str.replaceAll('<p>', '\n')
