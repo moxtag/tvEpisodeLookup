@@ -17,7 +17,7 @@ function getShow() {
     .then (data => {
         // input image and summary of show
         document.querySelector('img').src = data[0].show.image.medium
-        document.querySelector('.summary').innerText = replaceTags(data[0].show.summary)
+        document.querySelector('.summary').innerHTML = data[0].show.summary
         
         // get seasons for show
         let showID = data[0].show.id
@@ -53,7 +53,6 @@ function getShow() {
                      fetch (episodesRef)
                         .then(episodesRes => episodesRes.json())
                         .then(episodesData => {
-                            console.log(episodesData, 'episodes')
                             for (let episode in episodesData) {
                                 let listItem = document.createElement('li')
                                 listItem.innerText = episodesData[episode].name 
@@ -71,12 +70,6 @@ function getShow() {
 
 }
 
-// get rid of HTML tags passed in with API, but mainting styling
-
-/***
- * TODO
- * fix so html tags in data returned is integerated w/ site
- */
 
 function reset() {
     document.querySelector('input').value = ''
@@ -88,9 +81,4 @@ function reset() {
     document.querySelector('button').classList.toggle('hidden')
     document.querySelector('input').classList.toggle('hidden')
     document.querySelector('.reset').classList.toggle('hidden')
-}
-
-function replaceTags(str) {
-    let newString = str.replaceAll('<p>', '\n')
-    return newString.replaceAll('</p>', '\n')
 }
